@@ -4,22 +4,13 @@ import {AuthContext} from '../context/AuthContext'
 import {Button, StyleSheet, Text, View, FlatList} from 'react-native'
 import Spinner from 'react-native-loading-spinner-overlay'
 
-const HomeScreen = () => {
+const AboutScreen = () => {
   const [isLoading, userInfo, splashLoading, message, login, register, logout, trails] = useContext(AuthContext)
 
   return (
     <View style={styles.container}>
         <Spinner visible={isLoading} />
-        <Text style={styles.welcome}>Welcome {userInfo.name}</Text>
-        <Button title="Logout" color="red" onPress={logout} />
-        <FlatList style={styles.list}
-            data={trails} 
-            renderItem={({item}) => ( 
-                <Card>
-                    <Text>{item.title}</Text>
-                </Card>
-            )}
-        />
+        <Text style={styles.welcome}>About Hiking Trials App</Text>
     </View>
   )
 }
@@ -39,4 +30,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default HomeScreen
+export default AboutScreen

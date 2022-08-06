@@ -16,6 +16,8 @@ export const AuthProvider = ({children}) => {
         { title: 'Shivapuri Bishnudwar Hike'},
         { title: 'Phulchowki Trail Hike'},
         { title: 'Champadevi Trail Hike'},
+        { title: 'Lakuri Bhanjyang Hike'},
+        { title: 'Chisapani Hiking Trail'},
     ])
 
     const register = (name, email, password, passwordConfirm) => {
@@ -124,6 +126,6 @@ export const AuthProvider = ({children}) => {
     }, [])
  
     return (
-        <AuthContext.Provider value={[isLoading, userInfo, splashLoading, message, login, register, logout]}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={[isLoading, userInfo, splashLoading, message, login, register, logout, trails]}>{children}</AuthContext.Provider>
     )
 }

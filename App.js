@@ -1,13 +1,14 @@
+import 'react-native-gesture-handler'
 import React from "react"
 import {AuthProvider} from './context/AuthContext'
-import {Navigation} from './components/Navigation'
+import Drawer from './routes/Drawer'
 import {StatusBar, Text, View} from 'react-native'
 
 const App = () => {
     return (
         <AuthProvider>
             <StatusBar backgroundColor="#06bcee" />
-            <Navigation />
+            <Drawer />
         </AuthProvider>
     )
 }
