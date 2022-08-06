@@ -1,12 +1,32 @@
-import React from "react"
-import {Text, View} from "react-native"
+import Card from '../shared/Card'
+import React, {useContext} from 'react'
+import {AuthContext} from '../context/AuthContext'
+import {Button, StyleSheet, Text, View} from 'react-native'
+import Spinner from 'react-native-loading-spinner-overlay'
 
 const HomeScreen = () => {
-    return (
-        <View>
-            <Text>HomeScreen</Text>
-        </View>
-    )
+  const [isLoading, userInfo, splashLoading, message, login, register, logout] = useContext(AuthContext)
+
+  return (
+    <View style={styles.container}>
+      <Spinner visible={isLoading} />
+      <Text style={styles.welcome}>Welcome {userInfo.name}</Text>
+      <Button title="Logout" color="red" onPress={logout} />
+
+    </View>
+  )
 }
 
-export default HomeScreen;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  welcome: {
+    fontSize: 18,
+    marginBottom: 8,
+  },
+})
+
+export default HomeScreen

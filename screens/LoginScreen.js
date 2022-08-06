@@ -1,17 +1,19 @@
 import React, {useState, useContext} from "react"
 import {AuthContext} from '../context/AuthContext';
+import Spinner from 'react-native-loading-spinner-overlay'
 import {Button, Text, TextInput, TouchableOpacity, View, StyleSheet} from "react-native"
 
 
 const LoginScreen = ({navigation}) => {
-    const [email, setEmail] = useState(null);
-    const [password, setPassword] = useState(null);
-    const val = useContext(AuthContext)
+    const [email, setEmail] = useState('sameernyaupane@gmail.com')
+    const [password, setPassword] = useState('test123321')
+    const [isLoading, userInfo, splashLoading, message, login, register, logout] = useContext(AuthContext)
 
     return (
         <View style={styles.container}>
+            <Spinner visible={isLoading} />
             <View style={styles.wrapper}>
-                <Text>{val}</Text>
+                <Text>{message}</Text>
 
                 <TextInput 
                     style={styles.input} 
@@ -28,7 +30,9 @@ const LoginScreen = ({navigation}) => {
                     secureTextEntry
                 />
 
-                <Button title="Login" />
+                <Button title="Login" onPress={() => {
+                    login(email, password);
+                }} />
                 <View style={{flexDirection: 'row', marginTop: 20}}>
                     <Text>Don't have an account? </Text>
                     <TouchableOpacity onPress={() => navigation.navigate('Register')}>
