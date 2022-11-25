@@ -10,7 +10,7 @@ const AboutScreen = () => {
   return (
     <View style={styles.container}>
         <Spinner visible={isLoading} />
-        <Text style={styles.welcome}>About Hiking Trials App</Text>
+        <Text style={styles.welcome}>About Hiking Trails App</Text>
     </View>
   )
 }

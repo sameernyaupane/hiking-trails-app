@@ -3,7 +3,6 @@ import HomeStack from "./HomeStack"
 import { createDrawerNavigator } from "@react-navigation/drawer"
 import { NavigationContainer } from '@react-navigation/native';
 
-
 const RootDrawerNavigator = createDrawerNavigator();
 
 const Drawer = () => {
