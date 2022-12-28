@@ -9,8 +9,8 @@ const Drawer = () => {
   return (
     <NavigationContainer>
       <RootDrawerNavigator.Navigator initialRouteName="HomeDrawer" options={{headerShown: false}}>
-        <RootDrawerNavigator.Screen name="Hiking Trails" component={HomeStack} />
-        <RootDrawerNavigator.Screen name="About" component={AboutScreen} />
+        <RootDrawerNavigator.Screen name="Hiking Trails" component={HomeStack} options={{headerShown: false}}  />
+        <RootDrawerNavigator.Screen name="About" component={AboutScreen} options={{headerShown: false}} />
       </RootDrawerNavigator.Navigator>
     </NavigationContainer>
   );

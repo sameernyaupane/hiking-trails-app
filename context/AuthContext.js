@@ -3,7 +3,7 @@ import * as Device from 'expo-device'
 import React, {createContext, useEffect, useState} from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const BASE_URL = 'http://hiking-trails.192.168.2.101.nip.io'
+const BASE_URL = 'http://hiking-trails-api.192.168.1.74.nip.io'
 
 export const AuthContext = createContext()
 
@@ -13,11 +13,11 @@ export const AuthProvider = ({children}) => {
     const [message, setMessage] = useState('')
     const [splashLoading, setSplashLoading] = useState(false)
     const [trails, setTrails] = useState([
-        { title: 'Shivapuri Bishnudwar Hike'},
-        { title: 'Phulchowki Trail Hike'},
-        { title: 'Champadevi Trail Hike'},
-        { title: 'Lakuri Bhanjyang Hike'},
-        { title: 'Chisapani Hiking Trail'},
+        { title: 'Shivapuri Bishnudwar Hike', description: 'Description', thumbnail: require('../assets/favicon.png')},
+        { title: 'Phulchowki Trail Hike', description: 'Description', thumbnail: require('../assets/favicon.png')},
+        { title: 'Champadevi Trail Hike', description: 'Description', thumbnail: require('../assets/favicon.png')},
+        { title: 'Lakuri Bhanjyang Hike', description: 'Description', thumbnail: require('../assets/favicon.png')},
+        { title: 'Chisapani Hiking Trail', description: 'Description', thumbnail: require('../assets/favicon.png')},
     ])
 
     const register = (name, email, password, passwordConfirm) => {
@@ -73,6 +73,8 @@ export const AuthProvider = ({children}) => {
 
             console.log('login error ' + e)
         })
+
+        setIsLoading(false)
     }
 
     const logout = () => {
@@ -96,6 +98,8 @@ export const AuthProvider = ({children}) => {
 
             console.log('Logout error ', e)
         })
+
+        setIsLoading(false)
 
         setUserInfo({name: '', email: '', token: ''})
 

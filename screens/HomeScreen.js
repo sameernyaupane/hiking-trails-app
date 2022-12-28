@@ -1,10 +1,10 @@
 import Card from '../shared/Card'
 import React, {useContext} from 'react'
 import {AuthContext} from '../context/AuthContext'
-import {Button, StyleSheet, Text, View, FlatList} from 'react-native'
+import {Button, StyleSheet, Text, View, TouchableOpacity, FlatList} from 'react-native'
 import Spinner from 'react-native-loading-spinner-overlay'
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   const [isLoading, userInfo, splashLoading, message, login, register, logout, trails] = useContext(AuthContext)
 
   return (
@@ -15,9 +15,11 @@ const HomeScreen = () => {
         <FlatList style={styles.list}
             data={trails} 
             renderItem={({item}) => ( 
+              <TouchableOpacity onPress={() => navigation.navigate('Details', item)}>
                 <Card>
                     <Text>{item.title}</Text>
                 </Card>
+              </TouchableOpacity>
             )}
         />
     </View>
