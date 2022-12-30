@@ -12,11 +12,11 @@ const DetailsScreen = ({route, navigation}) => {
   return (
     <View style={styles.container}>
       <Card>
-        <Image source={ thumbnail } />
+        <Image style={styles.thumbnail} source={thumbnail} />
         <Text style={styles.titleText}>
-          { title }
+          {title}
         </Text>
-        <Text>{ description }</Text>
+        <Text>{description}</Text>
       </Card>
     </View>
   )
@@ -34,7 +34,15 @@ const styles = StyleSheet.create({
   },
   list: {
     marginVertical: 20
-  }
+  },
+  titleText: {
+    marginVertical: 20,
+    fontWeight: 'bold'
+  },
+  thumbnail: {
+    width: 360,
+    height: 300
+  },
 })
 
 export default DetailsScreen

@@ -3,7 +3,7 @@ import * as Device from 'expo-device'
 import React, {createContext, useEffect, useState} from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const BASE_URL = 'http://hiking-trails-api.192.168.1.74.nip.io'
+const BASE_URL = 'http://hiking-trails-api.192.168.23.74.nip.io'
 
 export const AuthContext = createContext()
 
@@ -13,11 +13,36 @@ export const AuthProvider = ({children}) => {
     const [message, setMessage] = useState('')
     const [splashLoading, setSplashLoading] = useState(false)
     const [trails, setTrails] = useState([
-        { title: 'Shivapuri Bishnudwar Hike', description: 'Description', thumbnail: require('../assets/favicon.png')},
-        { title: 'Phulchowki Trail Hike', description: 'Description', thumbnail: require('../assets/favicon.png')},
-        { title: 'Champadevi Trail Hike', description: 'Description', thumbnail: require('../assets/favicon.png')},
-        { title: 'Lakuri Bhanjyang Hike', description: 'Description', thumbnail: require('../assets/favicon.png')},
-        { title: 'Chisapani Hiking Trail', description: 'Description', thumbnail: require('../assets/favicon.png')},
+        { 
+            title: 'Shivapuri Bishnudwar Hike', 
+            short_description: "Bishnudwar, located on the Shivapuri National Park trail, is one of the most convenient and quick refreshment destinations in the bustling and busy city of Kathmandu.",
+            description: "Bishnudwar is the origin of the Bishnumati River, one of Kathmandu's most important rivers. Bishnumati is also religiously significant. Both Hindus and Buddhists regard this river as sacred. Bishnudwar, located on the Shivapuri National Park trail, is one of the most convenient and quick refreshment destinations in the bustling and busy city of Kathmandu. The pleasant trail and eye-catching greenery add to this hiking route.  The hike is around 2 to 3 hrs. Anyone with a basic level of hiking experience can explore this area.",
+            thumbnail: require('../assets/bishnudwar.jpg')
+        },
+        { 
+            title: 'Phulchowki Trail Hike', 
+            short_description: " Hike to Phulchowki Kathmandu is one of the most beautiful hiking related to vegetation around Kathmandu valley.",
+            description: "The highest hill situated in the south of Kathmandu valley famous for Vegetation (Botanical Garden) and bird watching. Hike to Phulchowki Kathmandu is one of the most beautiful hiking related to vegetation around Kathmandu valley. To start our hike to Phulchowki Kathmandu, we drive 14 km south of Kathmandu for about 40 minutes by private Car. After we reach Godavari (with Botanical Garden) we start our hiking gradually uphill through dense sub – Tropical forest for four hours.",
+            thumbnail: require('../assets/phulchowki.jpeg')
+        },
+        { 
+            title: 'Champadevi Trail Hike', 
+            short_description: "Champadevi Hike is one of the shortest one-day hikes in Nepal. This hike is suited for those who have comparatively less time.",
+            description: "The Champadevi Hike is the best way to get one with nature. First of all, the trip begins from Kathmandu and heads to Bhanjyang on a short drive. The hike slowly rises along the trail through dense forest filled with a variety of plants and flowers. During the Champadevi Hike, the hike features even more mesmerizing Bagmati River, Bungmati, Khokana, and Pharping. You can also come across several Buddhist monasteries on the way to the top. Next, you reach the top of the Champadevi hill.",
+            thumbnail: require('../assets/champadevi.jpg')
+        },
+        { 
+            title: 'Lakuri Bhanjyang Hike', 
+            short_description: "Lakuri Bhanjyang is a serene village on the south-eastern borders of Kathmandu Valley. This destination provides a perfect 160-degree view of the Kathmandu Valley and some mountains at a distance.",
+            description: "Lakuri Bhanjyang is a sweet escape from the busy capital with an opportunity to explore engaging and exciting countryside lifestyle. Initially, you will drive to Lamatar through Gwarko, which should take about an hour. From Lamatar, you can hike uphill either through a motor road or a steep foothill trail. Both of these paths will merge into one after walking up for a while. Lakuri Bhanjyang is about 13 kilometers away from Gwarko, and thus you will be walking for about 3 hours from Lamatar. From the viewpoint, you will get to see the three cities of Kathmandu valley, Kathmandu, Lalitpur, and Bhaktapur, along with with some of the peaks of the Langtang and Gaurishankar range.",
+            thumbnail: require('../assets/lakuri-bhanjyang.jpg')
+        },
+        { 
+            title: 'Chisapani Hiking Trail', 
+            short_description: "Chisapani (2160m) is a 5 to 6-hour uphill hiking from Kathmandu.  Driving around 45 minutes from the town center to Sundarijal and hiking via a beautiful village called Mulkharka, Chisapani is one of the nearest and best Kathmandu Valley Trekking.",
+            description: "The literature meaning of the “Chispani” is cold water. Nepali word “Chiso,” meaning cold and “Pani” means water. Chispani trek (2140) is one of the shortest and popular trek viewing spectacular snowcap mountain, green hill terraces, national park jungle with the beautiful Nepali village. This trek allows you to explore two days walking around Shivapuri National and Nagarkot, which is the nearest popular touristic hill station from Kathmandu. This trek is ideally suitable for short time traveler with 2-3 days who wish to explore Nepal within a short time frame. ",
+            thumbnail: require('../assets/chisapani.jpeg')
+        },
     ])
 
     const register = (name, email, password, passwordConfirm) => {
