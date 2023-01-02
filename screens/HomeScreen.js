@@ -4,6 +4,11 @@ import {AuthContext} from '../context/AuthContext'
 import {Button, StyleSheet, Text, View, TouchableOpacity, FlatList, Image} from 'react-native'
 import Spinner from 'react-native-loading-spinner-overlay'
 
+function shorten(str, maxLen, separator = ' ') {
+  if (str.length <= maxLen) return str;
+  return str.substr(0, str.lastIndexOf(separator, maxLen));
+}
+
 const HomeScreen = ({navigation}) => {
   const [isLoading, userInfo, splashLoading, message, login, register, logout, trails] = useContext(AuthContext)
 
@@ -14,6 +19,7 @@ const HomeScreen = ({navigation}) => {
         <Button title="Logout" color="red" onPress={logout} />
 
         <Text style={styles.listTitle}>Hiking Trails</Text>
+        <Button title="Add Trail" color="green" onPress={() => navigation.navigate('AddTrail')} />
         <FlatList style={styles.list}
             data={trails} 
             renderItem={({item}) => ( 
@@ -21,7 +27,7 @@ const HomeScreen = ({navigation}) => {
                 <Card>
                     <Image style={styles.thumbnail} source={item.thumbnail} />
                     <Text style={styles.titleText}>{item.title}</Text>
-                    <Text>{ item.short_description }</Text>
+                    <Text>{ shorten(item.description, 80) }...</Text>
                 </Card>
               </TouchableOpacity>
             )}

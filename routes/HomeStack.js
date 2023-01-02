@@ -1,4 +1,5 @@
 import Header from '../shared/Header'
+import AddTrail from '../screens/AddTrail';
 import HomeScreen from '../screens/HomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import React, {useState, useContext} from "react"
@@ -33,6 +34,11 @@ export const HomeStack = (Drawer) => {
             <Stack.Screen 
                 name="Details" 
                 component={DetailsScreen} 
+                options={{headerShown: true}}
+            />
+            <Stack.Screen 
+                name="AddTrail" 
+                component={AddTrail} 
                 options={{headerShown: true}}
             />
             </>
