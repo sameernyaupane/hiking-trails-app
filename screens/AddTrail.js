@@ -16,7 +16,7 @@ const AddTrail = () => {
         <Formik
           initialValues={{title: '', description: '', thumbnail: ''}}
           onSubmit={(values) => {
-
+            console.log(values);
           }}
         >
           {(props) => (
@@ -41,6 +41,8 @@ const AddTrail = () => {
                 onChangeText={props.handleChange('thumbnail')}
                 value={props.values.thumbnail}
               />
+
+              <Button title='submit' color="maroon" onPress={props.handleSubmit} />
 
             </View>
           )}

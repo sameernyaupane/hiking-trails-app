@@ -3,7 +3,7 @@ import * as Device from 'expo-device'
 import React, {createContext, useEffect, useState} from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const BASE_URL = 'http://hiking-trails-api.192.168.1.74.nip.io'
+const BASE_URL = 'http://hiking-trails-api.192.168.2.101.nip.io'
 
 export const AuthContext = createContext()
 
