@@ -7,7 +7,7 @@ import Spinner from 'react-native-loading-spinner-overlay'
 import {Button, StyleSheet, Text, View, FlatList} from 'react-native'
 
 const AddTrail = () => {
-  const [isLoading, userInfo, splashLoading, message, login, register, logout, trails] = useContext(AuthContext)
+  const [isLoading, userInfo, splashLoading, message, login, register, logout, trails, getTrails, BASE_URL, createTrail] = useContext(AuthContext)
 
   return (
     <View style={styles.container}>
@@ -16,7 +16,7 @@ const AddTrail = () => {
         <Formik
           initialValues={{title: '', description: '', thumbnail: ''}}
           onSubmit={(values) => {
-            console.log(values);
+            createTrail(values);
           }}
         >
           {(props) => (

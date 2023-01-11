@@ -5,14 +5,14 @@ import {Button, StyleSheet, Text, View, FlatList, Image} from 'react-native'
 import Spinner from 'react-native-loading-spinner-overlay'
 
 const DetailsScreen = ({route, navigation}) => {
-  const [isLoading, userInfo, splashLoading, message, login, register, logout, trails] = useContext(AuthContext)
+  const [isLoading, userInfo, splashLoading, message, login, register, logout, trails, getTrails, BASE_URL] = useContext(AuthContext)
 
   const {title, description, thumbnail} = route.params
 
   return (
     <View style={styles.container}>
       <Card>
-        <Image style={styles.thumbnail} source={thumbnail} />
+        <Image style={styles.thumbnail} source={{uri: BASE_URL + '/' + thumbnail}} />
         <Text style={styles.titleText}>
           {title}
         </Text>

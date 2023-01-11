@@ -1,5 +1,5 @@
 import Card from '../shared/Card'
-import React, {useContext} from 'react'
+import React, {useContext, useEffect} from 'react'
 import {AuthContext} from '../context/AuthContext'
 import {Button, StyleSheet, Text, View, TouchableOpacity, FlatList, Image} from 'react-native'
 import Spinner from 'react-native-loading-spinner-overlay'
@@ -10,7 +10,13 @@ function shorten(str, maxLen, separator = ' ') {
 }
 
 const HomeScreen = ({navigation}) => {
-  const [isLoading, userInfo, splashLoading, message, login, register, logout, trails] = useContext(AuthContext)
+  const [isLoading, userInfo, splashLoading, message, login, register, logout, trails, getTrails, BASE_URL] = useContext(AuthContext)
+
+  useEffect(() => {
+    console.log('homescreen triggered....')
+    console.log(BASE_URL)
+    
+  });
 
   return (
     <View style={styles.container}>
@@ -25,8 +31,8 @@ const HomeScreen = ({navigation}) => {
             renderItem={({item}) => ( 
               <TouchableOpacity onPress={() => navigation.navigate('Details', item)}>
                 <Card>
-                    <Image style={styles.thumbnail} source={item.thumbnail} />
-                    <Text style={styles.titleText}>{item.title}</Text>
+                    <Image style={styles.thumbnail} source={{uri: BASE_URL + '/' + (item.thumbnail ? item.thumbnail : 'thumbnails/600x400.svg')}} />
+                    <Text style={styles.titleText}>{item.title} { BASE_URL + '/' + (item.thumbnail ? item.thumbnail : 'thumbnails/600x400.svg')}</Text>
                     <Text>{ shorten(item.description, 80) }...</Text>
                 </Card>
               </TouchableOpacity>

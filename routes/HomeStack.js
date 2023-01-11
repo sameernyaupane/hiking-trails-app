@@ -2,7 +2,7 @@ import Header from '../shared/Header'
 import AddTrail from '../screens/AddTrail';
 import HomeScreen from '../screens/HomeScreen';
 import LoginScreen from '../screens/LoginScreen';
-import React, {useState, useContext} from "react"
+import React, {useState, useContext, useEffect} from "react"
 import {AuthContext} from '../context/AuthContext';
 import SplashScreen from '../screens/SplashScreen';
 import DetailsScreen from '../screens/DetailsScreen';

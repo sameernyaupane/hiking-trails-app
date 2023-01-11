@@ -3,7 +3,7 @@ import * as Device from 'expo-device'
 import React, {createContext, useEffect, useState} from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const BASE_URL = 'http://hiking-trails-api.192.168.2.101.nip.io'
+const BASE_URL = 'http://hiking-trails-api.192.168.1.74.nip.io'
 
 export const AuthContext = createContext()
 
@@ -12,7 +12,9 @@ export const AuthProvider = ({children}) => {
     const [isLoading, setIsLoading] = useState(false)
     const [message, setMessage] = useState('')
     const [splashLoading, setSplashLoading] = useState(false)
-    const [trails, setTrails] = useState([
+    const [trails, setTrails] = useState([])
+
+    /* const [trails, setTrails] = useState([
         { 
             title: 'Shivapuri Bishnudwar Hike', 
             description: "Bishnudwar is the origin of the Bishnumati River, one of Kathmandu's most important rivers. Bishnumati is also religiously significant. Both Hindus and Buddhists regard this river as sacred. Bishnudwar, located on the Shivapuri National Park trail, is one of the most convenient and quick refreshment destinations in the bustling and busy city of Kathmandu. The pleasant trail and eye-catching greenery add to this hiking route.  The hike is around 2 to 3 hrs. Anyone with a basic level of hiking experience can explore this area.",
@@ -38,7 +40,7 @@ export const AuthProvider = ({children}) => {
             description: "The literature meaning of the “Chispani” is cold water. Nepali word “Chiso,” meaning cold and “Pani” means water. Chispani trek (2140) is one of the shortest and popular trek viewing spectacular snowcap mountain, green hill terraces, national park jungle with the beautiful Nepali village. This trek allows you to explore two days walking around Shivapuri National and Nagarkot, which is the nearest popular touristic hill station from Kathmandu. This trek is ideally suitable for short time traveler with 2-3 days who wish to explore Nepal within a short time frame. ",
             thumbnail: require('../assets/chisapani.jpeg')
         },
-    ])
+    ]) */
 
     const register = (name, email, password, passwordConfirm) => {
         setIsLoading(true)
@@ -80,13 +82,17 @@ export const AuthProvider = ({children}) => {
             let token = res.data.token
             let name = res.data.name
 
-            let userInfo = {name, email, token}
-
-            setUserInfo(userInfo)
             AsyncStorage.setItem('userInfo', JSON.stringify(userInfo))
+            setUserInfo({name, email, token})
+
             setIsLoading(false)
 
             setMessage(`User Logged In from  device: ${device_name}`)
+
+            return token
+        })
+        .then(token => {
+            getTrails(token)
         })
         .catch(e => {
             setIsLoading(false)
@@ -124,7 +130,7 @@ export const AuthProvider = ({children}) => {
         setUserInfo({name: '', email: '', token: ''})
 
         setMessage(`You are now logged out.`)
-    };
+    }
 
     const isLoggedIn = async () => {
         console.log('isLoggedIn triggered..')
@@ -143,13 +149,60 @@ export const AuthProvider = ({children}) => {
             setSplashLoading(false)
             console.log(`is logged in error ${e}`)
         }
-    };
+    }
+
+    const getTrails = (token) => {
+        console.log('get trails api called..')
+        console.log(token)
+
+        let device_name = Device.modelName
+
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + token
+            }
+        }
+
+        axios.get(`${BASE_URL}/api/trails`, config).then(res => {
+            console.log(res.data)
+            setTrails(res.data)
+
+            setMessage(`Trails set`)
+        })
+        .catch(e => {
+            console.log('trails error ', e)
+        })
+    }
+
+    const createTrail = (details) => {
+        console.log('create trails api called..')
+        console.log(userInfo.token)
+
+        let device_name = Device.modelName
+
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + userInfo.token
+            }
+        }
+
+        axios.post(`${BASE_URL}/api/trails`, details, config).then(res => {
+            console.log(res.data)
+            setTrails(res.data)
+
+            setMessage(`Trail created`)
+        })
+        .catch(e => {
+            console.log('trails error ', e)
+        })
+    }
     
     useEffect(() => {
+        console.log('authcontext triggered....')
         isLoggedIn()
     }, [])
  
     return (
-        <AuthContext.Provider value={[isLoading, userInfo, splashLoading, message, login, register, logout, trails]}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={[isLoading, userInfo, splashLoading, message, login, register, logout, trails, getTrails, BASE_URL, createTrail]}>{children}</AuthContext.Provider>
     )
 }
