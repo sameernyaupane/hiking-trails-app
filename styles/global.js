@@ -14,6 +14,7 @@ export const globalStyles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
+
   input: {
     borderWidth: 1,
     borderColor: '#ddd',
@@ -21,5 +22,19 @@ export const globalStyles = StyleSheet.create({
     fontSize: 18,
     borderRadius: 6,
     width: 300,
+    backgroundColor: 'white',
+    marginVertical: 4,
+  },
+
+  textArea: {
+    borderWidth: 1,
+    borderColor: '#ddd',
+    padding: 10,
+    fontSize: 18,
+    borderRadius: 6,
+    width: 300,
+    height: 200,
+    backgroundColor: 'white',
+    marginVertical: 4
   },
 });

@@ -1,13 +1,15 @@
 import Header from '../shared/Header'
-import AddTrail from '../screens/AddTrail';
-import HomeScreen from '../screens/HomeScreen';
-import LoginScreen from '../screens/LoginScreen';
+import EditTrail from '../screens/EditTrail'
+import HomeScreen from '../screens/HomeScreen'
+import LoginScreen from '../screens/LoginScreen'
+import CreateTrail from '../screens/CreateTrail'
+import CreateGroup from '../screens/CreateGroup'
+import {AuthContext} from '../context/AuthContext'
+import SplashScreen from '../screens/SplashScreen'
+import DetailsScreen from '../screens/DetailsScreen'
+import RegisterScreen from '../screens/RegisterScreen'
 import React, {useState, useContext, useEffect} from "react"
-import {AuthContext} from '../context/AuthContext';
-import SplashScreen from '../screens/SplashScreen';
-import DetailsScreen from '../screens/DetailsScreen';
-import RegisterScreen from '../screens/RegisterScreen';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native'
 import {Button, Text, TextInput, View, StyleSheet} from "react-native"
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
@@ -37,8 +39,18 @@ export const HomeStack = (Drawer) => {
                 options={{headerShown: true}}
             />
             <Stack.Screen 
-                name="AddTrail" 
-                component={AddTrail} 
+                name="CreateTrail" 
+                component={CreateTrail} 
+                options={{headerShown: true}}
+            />
+            <Stack.Screen 
+                name="EditTrail" 
+                component={EditTrail} 
+                options={{headerShown: true}}
+            />
+            <Stack.Screen 
+                name="CreateGroup" 
+                component={CreateGroup} 
                 options={{headerShown: true}}
             />
             </>

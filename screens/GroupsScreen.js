@@ -9,11 +9,11 @@ function shorten(str, maxLen, separator = ' ') {
   return str.substr(0, str.lastIndexOf(separator, maxLen));
 }
 
-const HomeScreen = ({navigation}) => {
-  const [isLoading, userInfo, splashLoading, message, login, register, logout, trails, getTrails, BASE_URL, createTrail, updateTrail, deleteTrail] = useContext(AuthContext)
+const GroupsScreen = ({navigation}) => {
+  const [isLoading, userInfo, splashLoading, message, login, register, logout, trails, getTrails, BASE_URL, createTrail, updateTrail, deleteTrail, groups, getGroup] = useContext(AuthContext)
 
   useEffect(() => {
-    console.log('homescreen triggered....')
+    console.log('GroupsScreen triggered....')
     console.log(BASE_URL)
     
   });
@@ -21,26 +21,23 @@ const HomeScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
         <Spinner visible={isLoading} />
-        <Text style={styles.welcome}>Welcome {userInfo.name}</Text>
-        <Button title="Logout" color="red" onPress={logout} />
-
         <>
-        <Text style={styles.listTitle}>Hiking Trails</Text>
-        <Button title="Create Trail" color="green" onPress={() => navigation.navigate('CreateTrail')} />
+        <Text style={styles.listTitle}>Groups</Text>
+        <Button title="Create Group" color="green" onPress={() => navigation.navigate('CreateGroup')} />
         <FlatList 
             style={styles.list}
-            data={trails} 
+            data={groups} 
             renderItem={({item}) => (
               <View style={{marginVertical: 10}}>
                 <TouchableOpacity onPress={() => navigation.navigate('Details', item)}>
                   <Card>
                       <Image style={styles.thumbnail} source={{uri: BASE_URL + '/' + (item.thumbnail ? item.thumbnail : 'thumbnails/600x400.png')}} />
-                      <Text style={{fontWeight: 'bold'}}>{ item.title }</Text>
+                      <Text style={{fontWeight: 'bold'}}>{ item.name }</Text>
                       <Text>{ shorten(item.description, 80) }...</Text>
                   </Card>
                 </TouchableOpacity>
-                <Button title="Edit" color="blue" onPress={() => navigation.navigate('EditTrail', item)} />
-                <Button title="Delete" color="orange" onPress={ () => deleteTrail(item.id) } />
+                <Button title="Edit" color="blue" onPress={() => {}} />
+                <Button title="Delete" color="orange" onPress={() => {}} />
               </View>
             )}
         />
@@ -77,4 +74,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default HomeScreen
+export default GroupsScreen

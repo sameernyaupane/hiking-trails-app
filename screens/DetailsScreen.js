@@ -12,7 +12,7 @@ const DetailsScreen = ({route, navigation}) => {
   return (
     <View style={styles.container}>
       <Card>
-        <Image style={styles.thumbnail} source={{uri: BASE_URL + '/' + thumbnail}} />
+      <Image style={styles.thumbnail} source={{uri: BASE_URL + '/' + (thumbnail ? thumbnail : 'thumbnails/600x400.png')}} />
         <Text style={styles.titleText}>
           {title}
         </Text>

@@ -1,30 +1,51 @@
 import { Formik } from 'formik'
-import React, {useContext} from 'react'
+import React, {useContext, useState} from 'react'
 import {AuthContext} from '../context/AuthContext'
 import { globalStyles } from '../styles/global.js';
 import { TextInput } from 'react-native-gesture-handler'
 import Spinner from 'react-native-loading-spinner-overlay'
 import {Button, StyleSheet, Text, View, FlatList} from 'react-native'
 
-const AddTrail = () => {
-  const [isLoading, userInfo, splashLoading, message, login, register, logout, trails, getTrails, BASE_URL, createTrail] = useContext(AuthContext)
+const CreateGroup = () => {
+  const [
+    isLoading, 
+    userInfo, 
+    splashLoading, 
+    message, 
+    login, 
+    register, 
+    logout, 
+    trails, 
+    getTrails, 
+    BASE_URL, 
+    createTrail,
+    updateTrail, 
+    deleteTrail,
+    groups,
+    getGroups,
+    createGroup,
+
+  ] = useContext(AuthContext)
+
+  const [status, setStatus] = useState('')
 
   return (
     <View style={styles.container}>
         <Spinner visible={isLoading} />
-        <Text style={styles.welcome}>Add Trail</Text>
+        <Text style={styles.welcome}>Create Group</Text>
         <Formik
-          initialValues={{title: '', description: '', thumbnail: ''}}
+          initialValues={{name: '', description: '', thumbnail: ''}}
           onSubmit={(values) => {
-            createTrail(values);
+            createGroup(values);
+            setStatus('Group created.')
           }}
         >
           {(props) => (
             <View>
               <TextInput 
                 style={globalStyles.input}
-                placeholder="Title"
-                onChangeText={props.handleChange('title')}
+                placeholder="Name"
+                onChangeText={props.handleChange('name')}
                 value={props.values.title}
               />
 
@@ -42,7 +63,9 @@ const AddTrail = () => {
                 value={props.values.thumbnail}
               />
 
-              <Button title='submit' color="maroon" onPress={props.handleSubmit} />
+              <Button title='submit' color="green" onPress={props.handleSubmit} />
+
+              <Text style={{color: 'green'}}>{ status }</Text>
 
             </View>
           )}
@@ -66,4 +89,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default AddTrail
+export default CreateGroup
