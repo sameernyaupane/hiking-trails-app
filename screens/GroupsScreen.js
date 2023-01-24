@@ -10,12 +10,34 @@ function shorten(str, maxLen, separator = ' ') {
 }
 
 const GroupsScreen = ({navigation}) => {
-  const [isLoading, userInfo, splashLoading, message, login, register, logout, trails, getTrails, BASE_URL, createTrail, updateTrail, deleteTrail, groups, getGroup] = useContext(AuthContext)
+  const [
+    isLoading, 
+    userInfo, 
+    splashLoading, 
+    message, 
+    login, 
+    register, 
+    logout, 
+    trails, 
+    getTrails, 
+    BASE_URL, 
+    createTrail,
+    updateTrail, 
+    deleteTrail,
+    groups,
+    getGroups,
+    createGroup,
+    updateGroup,
+    deleteGroup,
+    recommendations,
+    getRecommendations,
+    rateTrail,
+    joinGroup,
+    leaveGroup,
+  ] = useContext(AuthContext)
 
   useEffect(() => {
-    console.log('GroupsScreen triggered....')
-    console.log(BASE_URL)
-    
+    console.log('GroupsScreen triggered....')    
   });
 
   return (
@@ -29,15 +51,23 @@ const GroupsScreen = ({navigation}) => {
             data={groups} 
             renderItem={({item}) => (
               <View style={{marginVertical: 10}}>
-                <TouchableOpacity onPress={() => navigation.navigate('Details', item)}>
+                <TouchableOpacity onPress={() => navigation.navigate('GroupDetail', item)}>
                   <Card>
                       <Image style={styles.thumbnail} source={{uri: BASE_URL + '/' + (item.thumbnail ? item.thumbnail : 'thumbnails/600x400.png')}} />
                       <Text style={{fontWeight: 'bold'}}>{ item.name }</Text>
                       <Text>{ shorten(item.description, 80) }...</Text>
                   </Card>
                 </TouchableOpacity>
-                <Button title="Edit" color="blue" onPress={() => {}} />
-                <Button title="Delete" color="orange" onPress={() => {}} />
+
+                { item.joined 
+                ? 
+                <Button title="Leave" color="black" onPress={() => leaveGroup(item.id)} />
+                : 
+                <Button title="Join" color="orange" onPress={() => joinGroup(item.id)} />
+                }
+                
+                <Button title="Edit" color="blue" onPress={() => navigation.navigate('EditGroup', item)} />
+                <Button title="Delete" color="red" onPress={ () => deleteGroup(item.id) } />
               </View>
             )}
         />

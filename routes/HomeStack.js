@@ -1,5 +1,6 @@
 import Header from '../shared/Header'
 import EditTrail from '../screens/EditTrail'
+import EditGroup from '../screens/EditGroup'
 import HomeScreen from '../screens/HomeScreen'
 import LoginScreen from '../screens/LoginScreen'
 import CreateTrail from '../screens/CreateTrail'
@@ -7,6 +8,7 @@ import CreateGroup from '../screens/CreateGroup'
 import {AuthContext} from '../context/AuthContext'
 import SplashScreen from '../screens/SplashScreen'
 import DetailsScreen from '../screens/DetailsScreen'
+import GroupDetail from '../screens/GroupDetail'
 import RegisterScreen from '../screens/RegisterScreen'
 import React, {useState, useContext, useEffect} from "react"
 import { NavigationContainer } from '@react-navigation/native'
@@ -51,6 +53,16 @@ export const HomeStack = (Drawer) => {
             <Stack.Screen 
                 name="CreateGroup" 
                 component={CreateGroup} 
+                options={{headerShown: true}}
+            />
+            <Stack.Screen 
+                name="EditGroup" 
+                component={EditGroup} 
+                options={{headerShown: true}}
+            />
+            <Stack.Screen 
+                name="GroupDetail" 
+                component={GroupDetail} 
                 options={{headerShown: true}}
             />
             </>

@@ -3,6 +3,7 @@ import React, {useContext, useEffect} from 'react'
 import {AuthContext} from '../context/AuthContext'
 import {Button, StyleSheet, Text, View, ScrollView, TouchableOpacity, FlatList, Image, ViewComponent} from 'react-native'
 import Spinner from 'react-native-loading-spinner-overlay'
+import SelectDropdown from 'react-native-select-dropdown';
 
 function shorten(str, maxLen, separator = ' ') {
   if (str.length <= maxLen) return str;
@@ -10,23 +11,52 @@ function shorten(str, maxLen, separator = ' ') {
 }
 
 const HomeScreen = ({navigation}) => {
-  const [isLoading, userInfo, splashLoading, message, login, register, logout, trails, getTrails, BASE_URL, createTrail, updateTrail, deleteTrail] = useContext(AuthContext)
+  const [
+    isLoading, 
+    userInfo, 
+    splashLoading, 
+    message, 
+    login, 
+    register, 
+    logout, 
+    trails, 
+    getTrails, 
+    BASE_URL, 
+    createTrail,
+    updateTrail, 
+    deleteTrail,
+    groups,
+    getGroups,
+    createGroup,
+    updateGroup, 
+    deleteGroup,
+    recommendations,
+    getRecommendations,
+    rateTrail,
+  ] = useContext(AuthContext)
+
+  const stars = [
+    'One',
+    'Two',
+    'Three',
+    'Four',
+    'Five',
+  ];
 
   useEffect(() => {
     console.log('homescreen triggered....')
-    console.log(BASE_URL)
-    
   });
 
   return (
     <View style={styles.container}>
         <Spinner visible={isLoading} />
         <Text style={styles.welcome}>Welcome {userInfo.name}</Text>
-        <Button title="Logout" color="red" onPress={logout} />
+        <Button title="Logout" color="black" onPress={logout} />
 
         <>
         <Text style={styles.listTitle}>Hiking Trails</Text>
         <Button title="Create Trail" color="green" onPress={() => navigation.navigate('CreateTrail')} />
+
         <FlatList 
             style={styles.list}
             data={trails} 
@@ -39,8 +69,24 @@ const HomeScreen = ({navigation}) => {
                       <Text>{ shorten(item.description, 80) }...</Text>
                   </Card>
                 </TouchableOpacity>
+                <SelectDropdown
+                  data={stars}
+                  defaultValueByIndex={(item.starRating.length > 0 ? (item.starRating[0] - 1) : false)} // use default value by index or default value
+                  // defaultValue={'Canada'} // use default value by index or default value
+                  onSelect={(selectedItem, index) => {
+                    console.log(selectedItem, index);
+                    rateTrail({ rating: index + 1}, item.id)
+                    
+                  }}
+                  buttonTextAfterSelection={(selectedItem, index) => {
+                    return selectedItem;
+                  }}
+                  rowTextForSelection={(item, index) => {
+                    return item;
+                  }}
+                />
                 <Button title="Edit" color="blue" onPress={() => navigation.navigate('EditTrail', item)} />
-                <Button title="Delete" color="orange" onPress={ () => deleteTrail(item.id) } />
+                <Button title="Delete" color="red" onPress={ () => deleteTrail(item.id) } />
               </View>
             )}
         />
