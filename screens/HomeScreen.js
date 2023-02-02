@@ -15,7 +15,7 @@ const HomeScreen = ({navigation}) => {
     isLoading, 
     userInfo, 
     splashLoading, 
-    message, 
+    messages, 
     login, 
     register, 
     logout, 

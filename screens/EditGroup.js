@@ -11,7 +11,7 @@ const EditGroup = ({route, navigation}) => {
     isLoading, 
     userInfo, 
     splashLoading, 
-    message, 
+    messages, 
     login, 
     register, 
     logout, 

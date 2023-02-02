@@ -37,4 +37,20 @@ export const globalStyles = StyleSheet.create({
     backgroundColor: 'white',
     marginVertical: 4
   },
+
+  messageBox: {
+    fontWeight: 'bold',
+    marginVertical: 8,
+    fontSize: 18,
+  },
+
+  error: {
+    color: 'red',
+    marginVertical: 2,
+  },
+
+  message: {
+    color: 'green',
+    marginVertical: 2,
+  }
 });

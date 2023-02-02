@@ -8,7 +8,7 @@ import {Button, StyleSheet, Text, View, FlatList} from 'react-native'
 import { color } from 'react-native-reanimated';
 
 const EditTrail = ({route, navigation}) => {
-  const [isLoading, userInfo, splashLoading, message, login, register, logout, trails, getTrails, BASE_URL, createTrail, updateTrail] = useContext(AuthContext)
+  const [isLoading, userInfo, splashLoading, messages, login, register, logout, trails, getTrails, BASE_URL, createTrail, updateTrail] = useContext(AuthContext)
 
   const {id, title, description, thumbnail} = route.params
 

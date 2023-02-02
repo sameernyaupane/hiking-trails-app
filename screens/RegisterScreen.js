@@ -9,13 +9,13 @@ const RegisterScreen = ({navigation}) => {
     const [password, setPassword] = useState(null);
     const [passwordConfirm, setPasswordConfirm] = useState(null);
 
-    const [isLoading, userInfo, splashLoading, message, login, register, logout] = useContext(AuthContext)
+    const [isLoading, userInfo, splashLoading, messages, login, register, logout] = useContext(AuthContext)
 
     return (
         <View style={styles.container}>
             <Spinner visible={isLoading} />
             <View style={styles.wrapper}>
-                <Text>{message}</Text>
+                <Text>{messages}</Text>
 
                 <TextInput 
                     style={styles.input} 

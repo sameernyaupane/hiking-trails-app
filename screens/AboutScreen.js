@@ -5,7 +5,7 @@ import {Button, StyleSheet, Text, View, FlatList} from 'react-native'
 import Spinner from 'react-native-loading-spinner-overlay'
 
 const AboutScreen = () => {
-  const [isLoading, userInfo, splashLoading, message, login, register, logout, trails] = useContext(AuthContext)
+  const [isLoading, userInfo, splashLoading, messages, login, register, logout, trails] = useContext(AuthContext)
 
   return (
     <View style={styles.container}>

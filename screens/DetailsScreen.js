@@ -6,7 +6,7 @@ import Spinner from 'react-native-loading-spinner-overlay'
 import {Button, StyleSheet, Text, View, FlatList, Image, ScrollView} from 'react-native'
 
 const DetailsScreen = ({route, navigation}) => {
-  const [isLoading, userInfo, splashLoading, message, login, register, logout, trails, getTrails, BASE_URL] = useContext(AuthContext)
+  const [isLoading, userInfo, splashLoading, messages, login, register, logout, trails, getTrails, BASE_URL] = useContext(AuthContext)
 
   const trail = route.params
 

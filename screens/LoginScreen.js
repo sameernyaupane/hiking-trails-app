@@ -7,13 +7,13 @@ import {Button, Text, TextInput, TouchableOpacity, View, StyleSheet} from "react
 const LoginScreen = ({navigation}) => {
     const [email, setEmail] = useState('sameernyaupane@gmail.com')
     const [password, setPassword] = useState('test123321')
-    const [isLoading, userInfo, splashLoading, message, login, register, logout] = useContext(AuthContext)
+    const [isLoading, userInfo, splashLoading, messages, login, register, logout] = useContext(AuthContext)
 
     return (
         <View style={styles.container}>
             <Spinner visible={isLoading} />
             <View style={styles.wrapper}>
-                <Text>{message}</Text>
+                <Text>{messages}</Text>
 
                 <TextInput 
                     style={styles.input} 

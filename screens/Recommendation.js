@@ -14,7 +14,7 @@ const Recommendation = ({navigation}) => {
     isLoading, 
     userInfo, 
     splashLoading, 
-    message, 
+    messages, 
     login, 
     register, 
     logout, 
@@ -27,10 +27,16 @@ const Recommendation = ({navigation}) => {
     groups,
     getGroups,
     createGroup,
-    updateGroup,
+    updateGroup, 
     deleteGroup,
     recommendations,
     getRecommendations,
+    rateTrail,
+    joinGroup,
+    leaveGroup,
+    userProfile,
+    getProfile,
+    updateProfile,
   ] = useContext(AuthContext)
 
 
@@ -41,27 +47,50 @@ const Recommendation = ({navigation}) => {
   return (
     <View style={styles.container}>
         <Spinner visible={isLoading} />
-        <>
+        <View>
           <Text style={styles.listTitle}>Trail Recommendation</Text>
-          <Text style={{ marginVertical: 12 }}>
-            Here are the recommended trails according to your preferences.
+
+          <Text style={{ marginVertical: 8 }}>
+            Your current preferences:
           </Text>
-          <FlatList 
-              style={styles.list}
-              data={recommendations} 
-              renderItem={({item}) => (
-                <View style={{marginVertical: 10}}>
-                  <TouchableOpacity onPress={() => navigation.navigate('Details', item)}>
-                    <Card>
-                        <Image style={styles.thumbnail} source={{uri: BASE_URL + '/' + (item.thumbnail ? item.thumbnail : 'thumbnails/600x400.png')}} />
-                        <Text style={{fontWeight: 'bold'}}>{ item.title }</Text>
-                        <Text>{ shorten(item.description, 80) }...</Text>
-                    </Card>
-                  </TouchableOpacity>
-                </View>
-              )}
-          />
-        </>
+          <Text style={{ marginVertical: 4 }}>
+            Difficulty : { userProfile.difficulty }
+          </Text>
+
+          <Text style={{ marginVertical: 4 }}>
+            Elevation Rating : { userProfile.elevation_rating }
+          </Text>
+
+          <Text style={{ marginVertical: 4 }}>
+            Distance Rating : { userProfile.distance_rating }
+          </Text>
+
+            {
+              recommendations.length > 0 ?
+                <>
+                  <Text style={{ marginVertical: 12 }}>
+                    Here are the recommended trails according to your preferences.
+                  </Text>
+                  <FlatList 
+                      style={styles.list}
+                      data={recommendations} 
+                      renderItem={({item}) => (
+                        <View style={{marginVertical: 10}}>
+                          <TouchableOpacity onPress={() => navigation.navigate('Details', item)}>
+                            <Card>
+                                <Image style={styles.thumbnail} source={{uri: BASE_URL + '/' + (item.thumbnail ? item.thumbnail : 'thumbnails/600x400.png')}} />
+                                <Text style={{fontWeight: 'bold'}}>{ item.title }</Text>
+                                <Text>{ shorten(item.description, 80) }...</Text>
+                            </Card>
+                          </TouchableOpacity>
+                        </View>
+                      )}
+                  />
+                </>
+              :
+              <Text>Please set preferences in profile to see recommendations.</Text>
+            }
+        </View>
     </View>
   )
 }
@@ -82,7 +111,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   list: {
-    marginVertical: 20,
+    marginVertical: 18,
     width: 260,
   },
   titleText: {

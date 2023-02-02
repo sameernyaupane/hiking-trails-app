@@ -9,8 +9,9 @@ export const AuthContext = createContext()
 
 export const AuthProvider = ({children}) => {
     const [userInfo, setUserInfo] = useState({name: '', email: '', token: ''})
+    const [userProfile, setUserProfile] = useState({difficulty: '', distance_rating: '', elevation_rating: ''})
     const [isLoading, setIsLoading] = useState(false)
-    const [message, setMessage] = useState('')
+    const [messages, setMessages] = useState([])
     const [splashLoading, setSplashLoading] = useState(false)
     const [trails, setTrails] = useState([])
     const [groups, setGroups] = useState([])
@@ -31,7 +32,7 @@ export const AuthProvider = ({children}) => {
             AsyncStorage.setItem('userInfo', JSON.stringify(userInfo))
             setIsLoading(false)
 
-            setMessage('User Registered')
+            setMessages(['User Registered'])
         })
         .catch(e => {
             setIsLoading(false)
@@ -61,11 +62,12 @@ export const AuthProvider = ({children}) => {
 
             setIsLoading(false)
 
-            setMessage(`User Logged In from  device: ${device_name}`)
+            setMessages([`User Logged In from  device: ${device_name}`])
 
             return token
         })
         .then(token => {
+            getProfile(token)
             getTrails(token)
             getGroups(token)
             getRecommendations(token)
@@ -108,7 +110,7 @@ export const AuthProvider = ({children}) => {
 
         setUserInfo({name: '', email: '', token: ''})
 
-        setMessage(`You are now logged out.`)
+        setMessages([`You are now logged out.`])
     }
 
     const isLoggedIn = async () => {
@@ -145,7 +147,7 @@ export const AuthProvider = ({children}) => {
         axios.get(`${BASE_URL}/api/trails`, config).then(res => {
             setTrails(res.data)
 
-            setMessage(`Trails set`)
+            setMessages([`Trails set`])
         })
         .catch(e => {
             console.log('trails error ', e)
@@ -165,7 +167,7 @@ export const AuthProvider = ({children}) => {
         }
 
         axios.post(`${BASE_URL}/api/trails`, details, config).then(res => {
-            setMessage(`Trail created`)
+            setMessages([`Trail created`])
 
             //Update trails list
             getTrails(userInfo.token)
@@ -188,7 +190,7 @@ export const AuthProvider = ({children}) => {
         }
 
         axios.put(`${BASE_URL}/api/trails/` + id, details, config).then(res => {
-            setMessage(`Trail updated`)
+            setMessages([`Trail updated`])
 
             //Update trails list
             getTrails(userInfo.token)
@@ -213,7 +215,7 @@ export const AuthProvider = ({children}) => {
         axios.delete(`${BASE_URL}/api/trails/` + id, config).then(res => {
             setTrails(res.data)
 
-            setMessage(`Trail deleted`)
+            setMessages([`Trail deleted`])
 
             //Update trails list
             getTrails(userInfo.token)
@@ -239,7 +241,7 @@ export const AuthProvider = ({children}) => {
             //Update groups list
             setGroups(res.data)
 
-            setMessage(`groups set`)
+            console.log(`groups set`)
         })
         .catch(e => {
             console.log('groups error ', e)
@@ -259,13 +261,17 @@ export const AuthProvider = ({children}) => {
         }
 
         axios.post(`${BASE_URL}/api/groups`, details, config).then(res => {
-            setMessage(`Group created`)
+            setMessages([`Group created`])
 
             //Update groups list
             getGroups(userInfo.token)
         })
         .catch(e => {
             console.log('groups error ', e)
+            if(e.response.status == 422) {
+                console.log(Object.entries(e.response.data.errors))
+                setMessages(Object.entries(e.response.data.errors))
+            }
         })
     }
 
@@ -282,7 +288,7 @@ export const AuthProvider = ({children}) => {
         }
 
         axios.put(`${BASE_URL}/api/groups/` + id, details, config).then(res => {
-            setMessage(`Group updated`)
+            setMessages([`Group updated`])
 
             //Update groups list
             getGroups(userInfo.token)
@@ -307,7 +313,7 @@ export const AuthProvider = ({children}) => {
         axios.delete(`${BASE_URL}/api/groups/` + id, config).then(res => {
             setGroups(res.data)
 
-            setMessage(`Group deleted`)
+            setMessages([`Group deleted`])
 
             //Update groups list
             getGroups(userInfo.token)
@@ -332,7 +338,7 @@ export const AuthProvider = ({children}) => {
         axios.get(`${BASE_URL}/api/recommendations`, config).then(res => {
             setRecommendations(res.data)
 
-            setMessage(`Recommendations set`)
+            console.log(`Recommendations set`)
         })
         .catch(e => {
             console.log('recommendations error ', e)
@@ -352,7 +358,7 @@ export const AuthProvider = ({children}) => {
         }
 
         axios.post(`${BASE_URL}/api/rate-trail/` + id, details, config).then(res => {
-            setMessage(`Trail rated`)
+            setMessages([`Trail rated`])
 
             //Update trails list
             getTrails(userInfo.token)
@@ -375,7 +381,7 @@ export const AuthProvider = ({children}) => {
         }
 
         axios.post(`${BASE_URL}/api/join-group/` + id, {}, config).then(res => {
-            setMessage(`Group joined`)
+            setMessages([`Group joined`])
 
             //Update groups list
             getGroups(userInfo.token)
@@ -398,7 +404,7 @@ export const AuthProvider = ({children}) => {
         }
 
         axios.post(`${BASE_URL}/api/leave-group/` + id, {}, config).then(res => {
-            setMessage(`Group left`)
+            setMessages([`Group left`])
 
             //Update groups list
             getGroups(userInfo.token)
@@ -406,6 +412,69 @@ export const AuthProvider = ({children}) => {
         .catch(e => {
             console.log('group leave error ', e)
         })
+    }
+
+    const getProfile = (token) => {
+        console.log('get profile api called..')
+        console.log(token)
+
+        let device_name = Device.modelName
+
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + token
+            }
+        }
+
+        axios.get(`${BASE_URL}/api/profile`, config).then(res => {
+            console.log('ere')
+            console.log(res.data)
+            //Update groups list
+            setUserProfile(res.data)
+
+            console.log(userProfile)
+
+            console.log(`user profile set`)
+        })
+        .catch(e => {
+            console.log('get profile error ', e)
+        })
+    }
+
+    const updateProfile = (details) => {
+        setMessages([])
+        console.log('update profile api called..')
+        console.log(userInfo.token)
+
+        let device_name = Device.modelName
+
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + userInfo.token
+            }
+        }
+
+        axios.put(`${BASE_URL}/api/profile`, details, config).then(res => {
+            setMessages([`Profile updated`])
+
+            //Update profile list
+            getProfile(userInfo.token)
+            getRecommendations(userInfo.token)
+        })
+        .catch(e => {
+            console.log('profile update error: ', e.response.status)
+
+            setMessages(['profile update error: ', e.response.status])
+
+            if(e.response.status == 422) {
+                console.log(Object.entries(e.response.data.errors))
+                setMessages(Object.entries(e.response.data.errors))
+            }
+        })
+    }
+
+    const setParentMessages = (messages) => {
+        setMessages(messages)
     }
     
     useEffect(() => {
@@ -418,7 +487,7 @@ export const AuthProvider = ({children}) => {
             isLoading, 
             userInfo, 
             splashLoading, 
-            message, 
+            messages, 
             login, 
             register, 
             logout, 
@@ -438,6 +507,9 @@ export const AuthProvider = ({children}) => {
             rateTrail,
             joinGroup,
             leaveGroup,
+            userProfile,
+            getProfile,
+            updateProfile,
         ]}>{children}</AuthContext.Provider>
     )
 }

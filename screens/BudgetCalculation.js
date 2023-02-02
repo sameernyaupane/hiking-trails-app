@@ -7,7 +7,7 @@ import Spinner from 'react-native-loading-spinner-overlay'
 import {Button, StyleSheet, Text, View, FlatList} from 'react-native'
 
 const BudgetCalculation = () => {
-  const [isLoading, userInfo, splashLoading, message, login, register, logout, trails, getTrails, BASE_URL, budgetCalculation] = useContext(AuthContext)
+  const [isLoading, userInfo, splashLoading, messages, login, register, logout, trails, getTrails, BASE_URL, budgetCalculation] = useContext(AuthContext)
 
   const [status, setStatus] = useState('')
 
