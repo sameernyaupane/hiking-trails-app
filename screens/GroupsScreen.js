@@ -65,9 +65,16 @@ const GroupsScreen = ({navigation}) => {
                 : 
                 <Button title="Join" color="orange" onPress={() => joinGroup(item.id)} />
                 }
-                
-                <Button title="Edit" color="blue" onPress={() => navigation.navigate('EditGroup', item)} />
-                <Button title="Delete" color="red" onPress={ () => deleteGroup(item.id) } />
+
+                {
+                  userInfo.roles.includes('Admin') || userInfo.userId == item.user_id ?
+                  <>
+                    <Button title="Edit" color="blue" onPress={() => navigation.navigate('EditGroup', item)} />
+                    <Button title="Delete" color="red" onPress={ () => deleteGroup(item.id) } />
+                  </>
+                  :
+                  <></>
+                }
               </View>
             )}
         />

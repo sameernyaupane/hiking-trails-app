@@ -1,5 +1,6 @@
 import React, {useState, useContext} from "react"
 import {AuthContext} from '../context/AuthContext';
+import { globalStyles } from '../styles/global.js';
 import Spinner from 'react-native-loading-spinner-overlay'
 import {Button, Text, TextInput, TouchableOpacity, View, StyleSheet} from "react-native"
 
@@ -13,8 +14,6 @@ const LoginScreen = ({navigation}) => {
         <View style={styles.container}>
             <Spinner visible={isLoading} />
             <View style={styles.wrapper}>
-                <Text>{messages}</Text>
-
                 <TextInput 
                     style={styles.input} 
                     value={email}
@@ -33,6 +32,16 @@ const LoginScreen = ({navigation}) => {
                 <Button title="Login" onPress={() => {
                     login(email, password);
                 }} />
+
+                <View style={globalStyles.messageBox}>
+                    {messages.map((message, index) => (
+                    Array.isArray(message) ?
+                        (<Text style={globalStyles.error} key={index}>{ message[1] }</Text>)
+                    :
+                    (<Text style={globalStyles.message} key={index}>{ message }</Text>)
+                    ))}
+                </View>
+
                 <View style={{flexDirection: 'row', marginTop: 20}}>
                     <Text>Don't have an account? </Text>
                     <TouchableOpacity onPress={() => navigation.navigate('Register')}>

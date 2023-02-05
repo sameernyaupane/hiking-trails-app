@@ -85,8 +85,15 @@ const HomeScreen = ({navigation}) => {
                     return item;
                   }}
                 />
-                <Button title="Edit" color="blue" onPress={() => navigation.navigate('EditTrail', item)} />
-                <Button title="Delete" color="red" onPress={ () => deleteTrail(item.id) } />
+                {
+                  userInfo.roles.includes('Admin') || userInfo.userId == item.user_id ?
+                  <>
+                    <Button title="Edit" color="blue" onPress={() => navigation.navigate('EditTrail', item)} />
+                    <Button title="Delete" color="red" onPress={ () => deleteTrail(item.id) } />
+                  </>
+                  :
+                  <></>
+                }
               </View>
             )}
         />

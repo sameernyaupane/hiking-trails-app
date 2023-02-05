@@ -19,17 +19,25 @@ const DetailsScreen = ({route, navigation}) => {
             { trail.title }
           </Text>
           <Text style={styles.text}>{ trail.description }</Text>
-          <Text style={styles.text}>Difficulty: { trail.details.difficulty }</Text>
-          <Text style={styles.text}>Elevation: { trail.details.elevation }</Text>
-          <Text style={styles.text}>Elevation Rating: { trail.details.elevation_rating }</Text>
-          <Text style={styles.text}>Distance: { trail.details.distance }</Text>
-          <Text style={styles.text}>Distance Rating: { trail.details.distance_rating }</Text>
-          <Text style={styles.text}>Estimated Time: { trail.details.estimated_time }</Text>
-          <Text style={styles.text}>Accomodations:</Text>
-          <Text style={styles.text}>{ trail.details.accomodation1 }, Rs.{ trail.details.accomodation1_cost } /night</Text>
-          <Text style={styles.text}>{ trail.details.accomodation2 }, Rs.{ trail.details.accomodation2_cost } /night</Text>
-          <Text style={styles.text}>{ trail.details.accomodation3 }, Rs.{ trail.details.accomodation3_cost } /night</Text>
-          <Text style={styles.text}>Map url: { trail.details.map_url }</Text>
+          {
+            trail.details !== null ?
+            <>
+              <Text style={styles.text}>Difficulty: { trail.details.difficulty }</Text>
+              <Text style={styles.text}>Elevation: { trail.details.elevation }</Text>
+              <Text style={styles.text}>Elevation Rating: { trail.details.elevation_rating }</Text>
+              <Text style={styles.text}>Distance: { trail.details.distance }</Text>
+              <Text style={styles.text}>Distance Rating: { trail.details.distance_rating }</Text>
+              <Text style={styles.text}>Estimated Time: { trail.details.estimated_time }</Text>
+              <Text style={styles.text}>Accomodations:</Text>
+              <Text style={styles.text}>{ trail.details.accomodation1 }, Rs.{ trail.details.accomodation1_cost } /night</Text>
+              <Text style={styles.text}>{ trail.details.accomodation2 }, Rs.{ trail.details.accomodation2_cost } /night</Text>
+              <Text style={styles.text}>{ trail.details.accomodation3 }, Rs.{ trail.details.accomodation3_cost } /night</Text>
+              <Text style={styles.text}>Map url: { trail.details.map_url }</Text>
+            </>
+          :
+          <Text></Text>
+          }
+
         </Card>
       </ScrollView>
     </View>

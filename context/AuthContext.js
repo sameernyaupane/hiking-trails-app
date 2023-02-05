@@ -3,7 +3,7 @@ import * as Device from 'expo-device'
 import React, {createContext, useEffect, useState} from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const BASE_URL = 'http://hiking-trails-api.192.168.1.74.nip.io'
+const BASE_URL = 'http://hiking-trails-api.192.168.2.102.nip.io'
 
 export const AuthContext = createContext()
 
@@ -37,7 +37,10 @@ export const AuthProvider = ({children}) => {
         .catch(e => {
             setIsLoading(false)
 
-            console.log('register error ' + e)
+            if(e.response.status == 422) {
+                console.log(Object.entries(e.response.data.errors))
+                setMessages(Object.entries(e.response.data.errors))
+            }
         })
 
     }
@@ -55,18 +58,14 @@ export const AuthProvider = ({children}) => {
             console.log('login response:', res.data)
 
             let token = res.data.token
-            let name = res.data.name
 
             AsyncStorage.setItem('userInfo', JSON.stringify(userInfo))
-            setUserInfo({name, email, token})
+            setUserInfo(res.data)
 
             setIsLoading(false)
 
             setMessages([`User Logged In from  device: ${device_name}`])
 
-            return token
-        })
-        .then(token => {
             getProfile(token)
             getTrails(token)
             getGroups(token)
@@ -75,7 +74,10 @@ export const AuthProvider = ({children}) => {
         .catch(e => {
             setIsLoading(false)
 
-            console.log('login error ' + e)
+            if(e.response.status == 422) {
+                console.log(Object.entries(e.response.data.errors))
+                setMessages(Object.entries(e.response.data.errors))
+            }
         })
 
         setIsLoading(false)
@@ -108,7 +110,7 @@ export const AuthProvider = ({children}) => {
 
         AsyncStorage.removeItem('userInfo')
 
-        setUserInfo({name: '', email: '', token: ''})
+        setUserInfo({name: '', email: '', token: '', user_id: 0, roles: []})
 
         setMessages([`You are now logged out.`])
     }
@@ -147,7 +149,7 @@ export const AuthProvider = ({children}) => {
         axios.get(`${BASE_URL}/api/trails`, config).then(res => {
             setTrails(res.data)
 
-            setMessages([`Trails set`])
+            console.log('Trails set')
         })
         .catch(e => {
             console.log('trails error ', e)
@@ -174,6 +176,11 @@ export const AuthProvider = ({children}) => {
         })
         .catch(e => {
             console.log('trails error ', e)
+
+            if(e.response.status == 422) {
+                console.log(Object.entries(e.response.data.errors))
+                setMessages(Object.entries(e.response.data.errors))
+            }
         })
     }
 
@@ -197,6 +204,11 @@ export const AuthProvider = ({children}) => {
         })
         .catch(e => {
             console.log('trail error ', e)
+
+            if(e.response.status == 422) {
+                console.log(Object.entries(e.response.data.errors))
+                setMessages(Object.entries(e.response.data.errors))
+            }
         })
     }
 
@@ -295,6 +307,11 @@ export const AuthProvider = ({children}) => {
         })
         .catch(e => {
             console.log('group error ', e)
+
+            if(e.response.status == 422) {
+                console.log(Object.entries(e.response.data.errors))
+                setMessages(Object.entries(e.response.data.errors))
+            }
         })
     }
 
@@ -365,6 +382,11 @@ export const AuthProvider = ({children}) => {
         })
         .catch(e => {
             console.log('trail error ', e)
+
+            if(e.response.status == 422) {
+                console.log(Object.entries(e.response.data.errors))
+                setMessages(Object.entries(e.response.data.errors))
+            }
         })
     }
 
@@ -388,6 +410,11 @@ export const AuthProvider = ({children}) => {
         })
         .catch(e => {
             console.log('join group error ', e)
+
+            if(e.response.status == 422) {
+                console.log(Object.entries(e.response.data.errors))
+                setMessages(Object.entries(e.response.data.errors))
+            }
         })
     }
 
@@ -411,6 +438,11 @@ export const AuthProvider = ({children}) => {
         })
         .catch(e => {
             console.log('group leave error ', e)
+
+            if(e.response.status == 422) {
+                console.log(Object.entries(e.response.data.errors))
+                setMessages(Object.entries(e.response.data.errors))
+            }
         })
     }
 

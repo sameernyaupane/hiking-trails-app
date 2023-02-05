@@ -19,7 +19,6 @@ const CreateTrail = () => {
           initialValues={{title: '', description: '', thumbnail: ''}}
           onSubmit={(values) => {
             createTrail(values);
-            setStatus('Trail created.')
           }}
         >
           {(props) => (
@@ -47,8 +46,14 @@ const CreateTrail = () => {
 
               <Button title='submit' color="green" onPress={props.handleSubmit} />
 
-              <Text style={{color: 'green'}}>{ status }</Text>
-
+              <View style={globalStyles.messageBox}>
+                {messages.map((message, index) => (
+                Array.isArray(message) ?
+                    (<Text style={globalStyles.error} key={index}>{ message[1] }</Text>)
+                  :
+                  (<Text style={globalStyles.message} key={index}>{ message }</Text>)
+                ))}
+              </View>
             </View>
           )}
         </Formik>

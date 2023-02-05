@@ -22,7 +22,6 @@ const EditTrail = ({route, navigation}) => {
           initialValues={{title: title, description: description, thumbnail: thumbnail}}
           onSubmit={(values) => {
             updateTrail(values, id);
-            setStatus('Trail edited.')
           }}
         >
           {(props) => (
@@ -51,7 +50,14 @@ const EditTrail = ({route, navigation}) => {
 
               <Button title='submit' color="blue" onPress={props.handleSubmit} />
 
-              <Text style={{color: 'green'}}>{ status }</Text>
+              <View style={globalStyles.messageBox}>
+                {messages.map((message, index) => (
+                Array.isArray(message) ?
+                    (<Text style={globalStyles.error} key={index}>{ message[1] }</Text>)
+                  :
+                  (<Text style={globalStyles.message} key={index}>{ message }</Text>)
+                ))}
+              </View>
 
             </View>
           )}
