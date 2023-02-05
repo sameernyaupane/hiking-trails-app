@@ -62,7 +62,7 @@ const EditProfile = ({route, navigation}) => {
         >
           {(props) => (
             <View>
-              <Text>Difficulty:</Text>
+              <Text>Difficulty: (Easy, Normal, Hard)</Text>
               <TextInput 
                 style={globalStyles.input}
                 placeholder="Difficulty"
@@ -70,7 +70,7 @@ const EditProfile = ({route, navigation}) => {
                 value={props.values.difficulty}
               />
 
-              <Text>Elevation Rating:</Text>
+              <Text>Elevation Rating: (Low, Medium, High)</Text>
               <TextInput
                 style={globalStyles.input}
                 placeholder="Elevation Rating"
@@ -78,7 +78,7 @@ const EditProfile = ({route, navigation}) => {
                 value={props.values.elevation_rating}
               />
 
-              <Text>Distance Rating:</Text>
+              <Text>Distance Rating: (Short, Moderate, Long)</Text>
               <TextInput
                 style={globalStyles.input}
                 placeholder="Distance Rating"

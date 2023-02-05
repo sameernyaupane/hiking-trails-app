@@ -1,14 +1,55 @@
-import React, {useState, useContext} from "react"
 import {AuthContext} from '../context/AuthContext';
 import { globalStyles } from '../styles/global.js';
 import Spinner from 'react-native-loading-spinner-overlay'
+import React, {useState, useContext, useEffect} from "react"
 import {Button, Text, TextInput, TouchableOpacity, View, StyleSheet} from "react-native"
-
 
 const LoginScreen = ({navigation}) => {
     const [email, setEmail] = useState('sameernyaupane@gmail.com')
     const [password, setPassword] = useState('test123321')
-    const [isLoading, userInfo, splashLoading, messages, login, register, logout] = useContext(AuthContext)
+
+    const [
+        isLoading, 
+        userInfo, 
+        splashLoading, 
+        messages, 
+        login, 
+        register, 
+        logout, 
+        trails, 
+        getTrails, 
+        BASE_URL, 
+        createTrail,
+        updateTrail, 
+        deleteTrail,
+        groups,
+        getGroups,
+        createGroup,
+        updateGroup, 
+        deleteGroup,
+        recommendations,
+        getRecommendations,
+        rateTrail,
+        joinGroup,
+        leaveGroup,
+        userProfile,
+        getProfile,
+        updateProfile,
+        setParentMessages,
+      ] = useContext(AuthContext)
+    
+      useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+          // The screen is focused
+          // Call any action
+          console.log('login page focused....')
+    
+          setParentMessages([])
+        });
+    
+        // Return the function to unsubscribe from the event so it gets removed on unmount
+        return unsubscribe;
+      }, [navigation]);
 
     return (
         <View style={styles.container}>
