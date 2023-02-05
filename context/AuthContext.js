@@ -136,7 +136,6 @@ export const AuthProvider = ({children}) => {
 
     const getTrails = (token) => {
         console.log('get trails api called..')
-        console.log(token)
 
         let device_name = Device.modelName
 
@@ -239,7 +238,6 @@ export const AuthProvider = ({children}) => {
 
     const getGroups = (token) => {
         console.log('get groups api called..')
-        console.log(token)
 
         let device_name = Device.modelName
 
@@ -342,7 +340,6 @@ export const AuthProvider = ({children}) => {
 
     const getRecommendations = (token) => {
         console.log('get recommendations api called..')
-        console.log(token)
 
         let device_name = Device.modelName
 
@@ -448,7 +445,6 @@ export const AuthProvider = ({children}) => {
 
     const getProfile = (token) => {
         console.log('get profile api called..')
-        console.log(token)
 
         let device_name = Device.modelName
 
@@ -459,12 +455,8 @@ export const AuthProvider = ({children}) => {
         }
 
         axios.get(`${BASE_URL}/api/profile`, config).then(res => {
-            console.log('ere')
-            console.log(res.data)
             //Update groups list
             setUserProfile(res.data)
-
-            console.log(userProfile)
 
             console.log(`user profile set`)
         })
@@ -476,7 +468,6 @@ export const AuthProvider = ({children}) => {
     const updateProfile = (details) => {
         setMessages([])
         console.log('update profile api called..')
-        console.log(userInfo.token)
 
         let device_name = Device.modelName
 
@@ -542,6 +533,7 @@ export const AuthProvider = ({children}) => {
             userProfile,
             getProfile,
             updateProfile,
+            setParentMessages,
         ]}>{children}</AuthContext.Provider>
     )
 }

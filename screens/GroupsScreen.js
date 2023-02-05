@@ -36,10 +36,6 @@ const GroupsScreen = ({navigation}) => {
     leaveGroup,
   ] = useContext(AuthContext)
 
-  useEffect(() => {
-    console.log('GroupsScreen triggered....')    
-  });
-
   return (
     <View style={styles.container}>
         <Spinner visible={isLoading} />

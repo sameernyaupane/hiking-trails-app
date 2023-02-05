@@ -1,15 +1,54 @@
 import { Formik } from 'formik'
-import React, {useContext, useState} from 'react'
 import {AuthContext} from '../context/AuthContext'
 import { globalStyles } from '../styles/global.js';
 import { TextInput } from 'react-native-gesture-handler'
 import Spinner from 'react-native-loading-spinner-overlay'
+import React, {useContext, useState, useEffect} from 'react'
 import {Button, StyleSheet, Text, View, FlatList} from 'react-native'
 
-const CreateTrail = () => {
-  const [isLoading, userInfo, splashLoading, messages, login, register, logout, trails, getTrails, BASE_URL, createTrail] = useContext(AuthContext)
+const CreateTrail = ({route, navigation}) => {
+  const [
+    isLoading, 
+    userInfo, 
+    splashLoading, 
+    messages, 
+    login, 
+    register, 
+    logout, 
+    trails, 
+    getTrails, 
+    BASE_URL, 
+    createTrail,
+    updateTrail, 
+    deleteTrail,
+    groups,
+    getGroups,
+    createGroup,
+    updateGroup, 
+    deleteGroup,
+    recommendations,
+    getRecommendations,
+    rateTrail,
+    joinGroup,
+    leaveGroup,
+    userProfile,
+    getProfile,
+    updateProfile,
+    setParentMessages,
+  ] = useContext(AuthContext)
 
-  const [status, setStatus] = useState('')
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      // The screen is focused
+      // Call any action
+      console.log('create trail page focused....')
+
+      setParentMessages([])
+    });
+
+    // Return the function to unsubscribe from the event so it gets removed on unmount
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <View style={styles.container}>

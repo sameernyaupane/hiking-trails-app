@@ -43,10 +43,6 @@ const HomeScreen = ({navigation}) => {
     'Five',
   ];
 
-  useEffect(() => {
-    console.log('homescreen triggered....')
-  });
-
   return (
     <View style={styles.container}>
         <Spinner visible={isLoading} />
