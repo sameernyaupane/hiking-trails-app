@@ -60,7 +60,6 @@ const EditGroup = ({route, navigation}) => {
           initialValues={{name: name, description: description, thumbnail: thumbnail}}
           onSubmit={(values) => {
             updateGroup(values, id);
-            setStatus('Group edited.')
           }}
         >
           {(props) => (

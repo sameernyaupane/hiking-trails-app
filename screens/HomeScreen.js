@@ -1,4 +1,5 @@
 import Card from '../shared/Card'
+import StarRating from '../shared/StarRating'
 import React, {useContext, useEffect} from 'react'
 import {AuthContext} from '../context/AuthContext'
 import {Button, StyleSheet, Text, View, ScrollView, TouchableOpacity, FlatList, Image, ViewComponent} from 'react-native'
@@ -42,7 +43,7 @@ const HomeScreen = ({navigation}) => {
     'Four',
     'Five',
   ];
-
+  
   return (
     <View style={styles.container}>
         <Spinner visible={isLoading} />
@@ -65,14 +66,16 @@ const HomeScreen = ({navigation}) => {
                       <Text>{ shorten(item.description, 80) }...</Text>
                   </Card>
                 </TouchableOpacity>
+
+                <StarRating rating={item.starRating[0]}></StarRating>
+
                 <SelectDropdown
                   data={stars}
-                  defaultValueByIndex={(item.starRating.length > 0 ? (item.starRating[0] - 1) : false)} // use default value by index or default value
-                  // defaultValue={'Canada'} // use default value by index or default value
+                  defaultButtonText="Rate Trail"
+                  defaultValueByIndex={(item.starRating.length > 0 ? (item.starRating[0] - 1) : false)}
                   onSelect={(selectedItem, index) => {
                     console.log(selectedItem, index);
                     rateTrail({ rating: index + 1}, item.id)
-                    
                   }}
                   buttonTextAfterSelection={(selectedItem, index) => {
                     return selectedItem;

@@ -224,8 +224,6 @@ export const AuthProvider = ({children}) => {
         }
 
         axios.delete(`${BASE_URL}/api/trails/` + id, config).then(res => {
-            setTrails(res.data)
-
             setMessages([`Trail deleted`])
 
             //Update trails list
@@ -326,8 +324,6 @@ export const AuthProvider = ({children}) => {
         }
 
         axios.delete(`${BASE_URL}/api/groups/` + id, config).then(res => {
-            setGroups(res.data)
-
             setMessages([`Group deleted`])
 
             //Update groups list
